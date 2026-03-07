@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "LH_mavenmart_bronze"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f6c1e634-5c28-9bb2-4aa4-daf95010b322"
+  }
+}
