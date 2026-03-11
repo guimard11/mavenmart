@@ -1,0 +1,71 @@
+table transactions
+	lineageTag: 2c2697f8-f291-4208-a91a-f0a5c6c96545
+	sourceLineageTag: [dbo].[transactions]
+
+	column transaction_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 50420866-cf66-4684-aff7-4cbfb83452cd
+		sourceLineageTag: transaction_date
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column stock_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8e633d4f-37bf-4302-bc1a-c31d9f905151
+		sourceLineageTag: stock_date
+		summarizeBy: none
+		sourceColumn: stock_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c2c7df8a-e909-4b18-bb0c-f06502673b01
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: efe6dd98-a072-4323-8094-d3e0e571fefb
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a2932fdb-b8af-4580-b5a0-27c9cf59c23b
+		sourceLineageTag: store_id
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: e2fbdffb-b746-4565-bfa1-44c885d62576
+		sourceLineageTag: quantity
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition transactions = entity
+		mode: directLake
+		source
+			entityName: transactions
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_mavenmart_gold'
+

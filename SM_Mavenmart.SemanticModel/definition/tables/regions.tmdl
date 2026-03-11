@@ -1,0 +1,39 @@
+table regions
+	lineageTag: 4e8ef611-0e63-4497-9e3a-504c904adcef
+	sourceLineageTag: [dbo].[regions]
+
+	column region_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 160d9989-c0e7-45e7-84c8-b922257d4980
+		sourceLineageTag: region_id
+		summarizeBy: none
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_district
+		dataType: string
+		lineageTag: b3b12305-aee0-40a3-a6ef-3fa647b1994b
+		sourceLineageTag: sales_district
+		summarizeBy: none
+		sourceColumn: sales_district
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_region
+		dataType: string
+		lineageTag: 9428d1f3-66d8-4d8b-b7da-b3b9342b3459
+		sourceLineageTag: sales_region
+		summarizeBy: none
+		sourceColumn: sales_region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions = entity
+		mode: directLake
+		source
+			entityName: regions
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_mavenmart_gold'
+

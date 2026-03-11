@@ -1,0 +1,37 @@
+relationship 21fed010-f9e6-16b6-3b08-75aecc18e010
+	fromColumn: transactions.customer_id
+	toColumn: customers.customer_id
+
+relationship b620cb70-2730-2217-8799-983e39dc8593
+	fromColumn: transactions.product_id
+	toColumn: products_new.product_id
+
+relationship eddb51f6-f6fb-8646-d266-04914325907d
+	fromColumn: transactions.store_id
+	toColumn: stores_new.store_id
+
+relationship 06bf4041-9a01-9a13-1738-a7d1971da757
+	fromColumn: transactions.transaction_date
+	toColumn: calendar_new.date
+
+relationship a2902006-fecc-0c16-61b3-1c0195ce791d
+	isActive: false
+	fromColumn: transactions.stock_date
+	toColumn: calendar_new.date
+
+relationship e20428d9-ca56-0a1a-375d-19b658782dd5
+	fromColumn: regions.region_id
+	toColumn: stores_new.region_id
+
+relationship f0c3b20b-9b3a-e8dd-9443-9c641a95db63
+	fromColumn: returns_97_98.product_id
+	toColumn: products_new.product_id
+
+relationship ca5542a8-c74e-6fad-cfec-1b10bf984b0a
+	fromColumn: returns_97_98.return_date
+	toColumn: calendar_new.date
+
+relationship 57fd8d1e-6b28-3336-35b3-bd718efb8b74
+	fromColumn: returns_97_98.store_id
+	toColumn: stores_new.store_id
+

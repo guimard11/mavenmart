@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SM_Mavenmart"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f0ec348a-fa53-8b0e-431e-bdfbb2edfa34"
+  }
+}

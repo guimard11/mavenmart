@@ -1,0 +1,142 @@
+table stores_new
+	lineageTag: 12bcfc9e-c7e1-42fc-b31b-6e8226b7913a
+	sourceLineageTag: [dbo].[stores_new]
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f52e3b8-af19-4a62-aac3-8e5ed04fb65b
+		sourceLineageTag: store_id
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b21689a-3d32-409d-ad10-2fc3cec78541
+		sourceLineageTag: region_id
+		summarizeBy: none
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_type
+		dataType: string
+		lineageTag: 9da4745e-ac89-4a32-8a3d-5717f70056a4
+		sourceLineageTag: store_type
+		summarizeBy: none
+		sourceColumn: store_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: 99fb2567-e2aa-4797-996d-4f682cd2746d
+		sourceLineageTag: store_name
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_street_address
+		dataType: string
+		lineageTag: b6a7031c-fac9-4118-9f2b-90b600727ae3
+		sourceLineageTag: store_street_address
+		summarizeBy: none
+		sourceColumn: store_street_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_city
+		dataType: string
+		lineageTag: f6c627b1-2eec-40b7-83e3-d6afe6a63429
+		sourceLineageTag: store_city
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_state
+		dataType: string
+		lineageTag: faa4847c-b2bc-48fe-ba6c-494a6d26ef71
+		sourceLineageTag: store_state
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_country
+		dataType: string
+		lineageTag: ef020056-9368-4646-9385-356339c9ff5e
+		sourceLineageTag: store_country
+		summarizeBy: none
+		sourceColumn: store_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_phone
+		dataType: string
+		lineageTag: 0c11b905-9d54-4488-847b-5e601d514107
+		sourceLineageTag: store_phone
+		summarizeBy: none
+		sourceColumn: store_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_opened_date
+		dataType: string
+		lineageTag: 04557477-a99a-413a-bee8-10eacd451916
+		sourceLineageTag: first_opened_date
+		summarizeBy: none
+		sourceColumn: first_opened_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_remodel_date
+		dataType: string
+		lineageTag: 0923362f-7306-49d4-9e5b-f2af75424c75
+		sourceLineageTag: last_remodel_date
+		summarizeBy: none
+		sourceColumn: last_remodel_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 0422d299-0ddc-46cd-82dd-7d9973fd0ab9
+		sourceLineageTag: total_sqft
+		summarizeBy: sum
+		sourceColumn: total_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column grocery_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: f650630f-e26b-4e2d-a2cb-5ebce54a79f8
+		sourceLineageTag: grocery_sqft
+		summarizeBy: sum
+		sourceColumn: grocery_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c216088-97ab-431a-8b5d-93eea0e2cb8d
+		sourceLineageTag: area_phone
+		summarizeBy: sum
+		sourceColumn: area_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stores_new = entity
+		mode: directLake
+		source
+			entityName: stores_new
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_mavenmart_gold'
+

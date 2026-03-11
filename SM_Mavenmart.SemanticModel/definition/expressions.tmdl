@@ -1,0 +1,9 @@
+expression 'DirectLake - LH_mavenmart_gold' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/2869e8b2-b7be-4489-a03e-7704f314fce5/23b11646-756d-4e0a-9edb-4d6fe09eb6bc", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: d46ef340-c832-4f0d-964c-4bcbcaa15761
+
+	annotation PBI_IncludeFutureArtifacts = False
+

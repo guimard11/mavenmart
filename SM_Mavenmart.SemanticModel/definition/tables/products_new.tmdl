@@ -1,0 +1,114 @@
+table products_new
+	lineageTag: 23b5aab6-4e89-47f6-93fa-8b3fb5dd6e04
+	sourceLineageTag: [dbo].[products_new]
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7416e67b-2813-4d0b-acb0-b224966ff167
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_brand
+		dataType: string
+		lineageTag: 7c783a72-4f58-4272-b722-758c9245e54a
+		sourceLineageTag: product_brand
+		summarizeBy: none
+		sourceColumn: product_brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 98d85d5c-f60c-4689-a553-11e10a558a27
+		sourceLineageTag: product_name
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_sku
+		dataType: string
+		lineageTag: 122a9e48-c705-48e2-973f-16a081717056
+		sourceLineageTag: product_sku
+		summarizeBy: none
+		sourceColumn: product_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_retail_price
+		dataType: double
+		lineageTag: 6b4983dd-1c3b-45f9-b88c-6ce0457f9c7f
+		sourceLineageTag: product_retail_price
+		summarizeBy: sum
+		sourceColumn: product_retail_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_cost
+		dataType: double
+		lineageTag: 62a75b06-d809-4199-a97c-fe44c3a580cd
+		sourceLineageTag: product_cost
+		summarizeBy: sum
+		sourceColumn: product_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_weight
+		dataType: double
+		lineageTag: 4957c323-8451-42f5-a0a6-91048104e20e
+		sourceLineageTag: product_weight
+		summarizeBy: sum
+		sourceColumn: product_weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recyclable
+		dataType: double
+		lineageTag: 00f12504-3e29-416f-a6a5-d81cf377b3cd
+		sourceLineageTag: recyclable
+		summarizeBy: sum
+		sourceColumn: recyclable
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column low_fat
+		dataType: double
+		lineageTag: a9d8cfcd-aa8a-4439-afaf-1a3e2b125adb
+		sourceLineageTag: low_fat
+		summarizeBy: sum
+		sourceColumn: low_fat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_price
+		dataType: double
+		lineageTag: 275e2010-958a-44a4-996f-3f3410514dff
+		sourceLineageTag: discount_price
+		summarizeBy: sum
+		sourceColumn: discount_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition products_new = entity
+		mode: directLake
+		source
+			entityName: products_new
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_mavenmart_gold'
+

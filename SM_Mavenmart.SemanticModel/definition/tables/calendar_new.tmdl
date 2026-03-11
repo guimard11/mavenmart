@@ -1,0 +1,79 @@
+table calendar_new
+	lineageTag: f7b87f40-a551-48b4-866e-b57b086ca0b9
+	sourceLineageTag: [dbo].[calendar_new]
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cb99a95a-72c6-436f-bef9-37b96c6ea1ac
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 7777064d-d6b6-4552-a266-e569aac2374e
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 4899b463-5320-4598-87a1-b8d93a3ee015
+		sourceLineageTag: quarter_year
+		summarizeBy: sum
+		sourceColumn: quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_month
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fdc2d390-fe00-40da-ba34-381e038a6755
+		sourceLineageTag: start_month
+		summarizeBy: none
+		sourceColumn: start_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column monday_start_week
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ed92de34-36f7-4337-8878-6a0e193a4ca8
+		sourceLineageTag: monday_start_week
+		summarizeBy: none
+		sourceColumn: monday_start_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: ad351acf-7c18-4f5c-8350-2684774e126c
+		sourceLineageTag: day_name
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 2256dcd6-d25f-4e74-8d79-8c49e29512b6
+		sourceLineageTag: month_name
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition calendar_new = entity
+		mode: directLake
+		source
+			entityName: calendar_new
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_mavenmart_gold'
+
