@@ -33,7 +33,7 @@
 
 # CELL ********************
 
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, to_date
 
 # METADATA ********************
 
@@ -243,8 +243,20 @@ print(transactions.dtypes)
 # CELL ********************
 
 # Transform colums related to date from string to date format
-transactions = transactions.withColumn('transaction_date', col('transaction_date').cast("date"))\
-                           .withColumn('stock_date', col('stock_date').cast("date"))
+transactions = transactions.withColumn('transaction_date', to_date(col('transaction_date'), "M/d/yyyy"))\
+                           .withColumn('stock_date', to_date(col('stock_date'), "M/d/yyyy"))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# Reverify columns data types from transactions 
+print(transactions.dtypes)
 
 # METADATA ********************
 
@@ -336,7 +348,7 @@ gold_returns_97_98_path = "abfss://mavenmart_pipe@onelake.dfs.fabric.microsoft.c
 # Path to stores_new into gold Lakehouse
 gold_stores_new_path = "abfss://mavenmart_pipe@onelake.dfs.fabric.microsoft.com/LH_mavenmart_gold.Lakehouse/Tables/dbo/stores_new"
 
-# Path to calendar_new into gold Lakehouse
+# Path to transactions into gold Lakehouse
 gold_transactions_path = "abfss://mavenmart_pipe@onelake.dfs.fabric.microsoft.com/LH_mavenmart_gold.Lakehouse/Tables/dbo/transactions"
 
 # METADATA ********************
