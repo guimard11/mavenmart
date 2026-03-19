@@ -1,0 +1,82 @@
+table returns_97_98
+	lineageTag: 601e04be-a205-41d2-98aa-c856b2527a8d
+
+	measure Quantity_Return = SUM(returns_97_98[quantity])
+		formatString: 0
+		lineageTag: 8cfa60e5-fa4a-471e-9f1a-3e739451b27e
+
+	measure Total_returns = COUNTROWS(returns_97_98)
+		formatString: 0
+		lineageTag: 71b8ee00-1c45-480d-857d-04409ea974fe
+
+	measure return_rate = ([Quantity_Return] / [Quantity_Sold])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 03bc84e2-c60d-40fa-aa58-8f4af0321006
+
+	column return_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1bed6c7e-7fd5-4726-8e5a-dc685cb5481b
+		summarizeBy: none
+		sourceColumn: return_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c1558fec-beea-45d1-bebb-01048421bde4
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b59b057-89b1-4e18-b1af-ce7657059a2f
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: a2c9b060-7318-4b02-b896-38ede22e0bf4
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_return
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ced5370-a771-428e-8a4e-f2ffad308c0e
+		summarizeBy: sum
+		sourceColumn: month_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_return
+		dataType: int64
+		formatString: 0
+		lineageTag: 204551d2-a7be-497d-a976-9c88f4b04669
+		summarizeBy: sum
+		sourceColumn: year_return
+
+		annotation SummarizationSetBy = Automatic
+
+	partition returns_97_98 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_returns_97_98 = Source{[Schema="dbo",Item="returns_97_98"]}[Data]
+				in
+				    dbo_returns_97_98
+
+	annotation PBI_ResultType = Table
+

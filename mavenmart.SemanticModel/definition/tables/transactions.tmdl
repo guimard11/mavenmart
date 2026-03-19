@@ -1,0 +1,155 @@
+table transactions
+	lineageTag: 0aa513a2-d904-4300-ba64-04eda2c535d5
+
+	measure Quantity_Sold = SUM(transactions[quantity])
+		formatString: 0
+		lineageTag: 5d32f223-a16f-435e-8661-726c4dbfae49
+
+	measure Total_transactions = COUNTROWS(transactions)
+		formatString: 0
+		lineageTag: 40c23ead-ca02-4358-a029-c9dfa1c8913d
+
+	measure Total_revenue = SUMX(transactions, transactions[quantity] * RELATED(products_new[product_retail_price]))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: aeb5208f-575a-4c5f-a8d6-8cc532c452e3
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Total_cost = SUMX(transactions, transactions[quantity]*RELATED(products_new[product_cost]))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a066423f-e8b6-4e94-9f07-e5a5a480fac5
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Total_profit = ([Total_revenue] - [Total_cost])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 818b6569-7fb2-4aa8-a1db-777e72b060c8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Profit_Margin = DIVIDE([Total_profit],[Total_revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b0bbcff5-55f4-434e-b2cd-f80013c3ff6b
+
+	measure YTD_Revenue =
+			
+			TOTALYTD(
+			    [Total_revenue],
+			    calendar_new[date])
+		lineageTag: da666bd5-9990-4dc0-9181-4225a79e438b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Weekend_Transactions = CALCULATE([Total_transactions], 'Calendar_new'[Weekend] = "Y")
+		formatString: 0
+		lineageTag: fdfabd62-8148-4e88-8d64-390d4636500d
+
+	measure '% Weekend_Transaction' = DIVIDE([Weekend_Transactions],[Total_transactions])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ebe31fb9-3ab1-40fb-b7f8-43894109b66e
+
+	measure '60-Day Revenue' = CALCULATE([Total_revenue],DATESINPERIOD(calendar_new[date], MAX(calendar_new[date]),-60,DAY))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: d631cabd-5474-432d-82f3-4c806b1d913e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Last_Month_Transactions = CALCULATE([Total_transactions], DATEADD(calendar_new[date],-1,MONTH))
+		formatString: 0
+		lineageTag: 391edfe6-d3dc-4476-a5f0-b9e344e68a5f
+
+	measure Last_Month_Revenue = CALCULATE([Total_revenue],DATEADD(calendar_new[date],-1,MONTH))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a52f5110-bf77-47bd-a859-612af2364ffe
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Last_Month_Profit = CALCULATE([Total_profit],DATEADD(calendar_new[date],-1,MONTH))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 0273b9c5-992f-4e2b-a94c-a432e8d07bb2
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Last_Month_Return = CALCULATE([Total_returns],DATEADD(calendar_new[date],-1,MONTH))
+		formatString: 0
+		lineageTag: 586b61cd-79b9-42e5-8b20-d992e872dbb1
+
+	measure Revenue_Target = (1.05 * [Last_Month_Revenue])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: eed5af83-8e97-4685-a128-6a11bb2cd4bb
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column transaction_date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 380fdb31-94c5-480e-8cd6-142a9834e38b
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column stock_date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 2a1fc254-2080-4df4-94bd-1acc0801ccb8
+		summarizeBy: none
+		sourceColumn: stock_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f775af9-f973-4b41-adcd-797892a6c3be
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 25cd3407-5540-4a2c-b7ee-099682f266e5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ff188c7-cc2b-4330-b143-b0818ce2b26f
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: bf3f829c-7b2a-46d9-9a70-c8d75e209a5c
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition transactions = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_transactions = Source{[Schema="dbo",Item="transactions"]}[Data]
+				in
+				    dbo_transactions
+
+	annotation PBI_ResultType = Table
+

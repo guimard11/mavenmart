@@ -1,0 +1,141 @@
+table stores_new
+	lineageTag: f0113bf6-11cd-4cf1-9d4d-3f336eb4e207
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e1125081-56f8-4788-9d43-91f8b484aca0
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fb1a0ff-c3a8-4472-84b1-7b9561cb3905
+		summarizeBy: none
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_type
+		dataType: string
+		lineageTag: d88eb7c4-6515-4c3f-98d3-b5c78f19246e
+		summarizeBy: none
+		sourceColumn: store_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: cd981912-3279-41d1-8d61-05866022bcc1
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_street_address
+		dataType: string
+		lineageTag: aece4055-b547-4ac4-8fc0-09826376ab55
+		summarizeBy: none
+		sourceColumn: store_street_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_city
+		dataType: string
+		lineageTag: b05bc36f-10ef-4016-a270-69ba0764864b
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_state
+		dataType: string
+		lineageTag: abe3c140-b67b-4c17-8333-f524a6680b7e
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_country
+		dataType: string
+		lineageTag: 2fc64016-e598-4e2f-b9b1-92ea4dcb1395
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: store_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_phone
+		dataType: string
+		lineageTag: e9919666-b8c0-42b0-9031-ebf5924dbce1
+		summarizeBy: none
+		sourceColumn: store_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_opened_date
+		dataType: string
+		lineageTag: ed275f76-5a61-4611-9c87-2eff90b81d14
+		summarizeBy: none
+		sourceColumn: first_opened_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_remodel_date
+		dataType: string
+		lineageTag: 60b8afc2-4bb5-4f5f-9fbe-59bc3772e967
+		summarizeBy: none
+		sourceColumn: last_remodel_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d17e213-5ca3-4c02-a080-a04e91e0baf3
+		summarizeBy: sum
+		sourceColumn: total_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column grocery_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 575cafbe-548a-488f-a8bc-bcbab443101a
+		summarizeBy: sum
+		sourceColumn: grocery_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: ca83f99c-9fa5-4b8d-a4a0-26b55f69f0be
+		summarizeBy: sum
+		sourceColumn: area_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Years_Since_Remodel = DATEDIFF(stores_new[last_remodel_date],TODAY(),YEAR)
+		formatString: 0
+		lineageTag: 67fdd0aa-d95b-4410-a034-a73139723374
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition stores_new = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_stores_new = Source{[Schema="dbo",Item="stores_new"]}[Data]
+				in
+				    dbo_stores_new
+
+	annotation PBI_ResultType = Table
+

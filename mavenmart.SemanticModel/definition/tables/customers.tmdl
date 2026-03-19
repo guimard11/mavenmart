@@ -1,0 +1,196 @@
+table customers
+	lineageTag: 84454277-cd7d-40e2-a46d-bebd2aed1c20
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b658f833-ed22-4f32-8089-ed270c950d8b
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_acct_num
+		dataType: string
+		lineageTag: cbae5992-79ed-474d-aca7-03e7b9ed63a7
+		summarizeBy: none
+		sourceColumn: customer_acct_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: c3b11ed8-cd6e-410e-8c66-420b2ab82f1d
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state_province
+		dataType: string
+		lineageTag: 80c26a94-f058-46ab-a669-3d639cea2911
+		summarizeBy: none
+		sourceColumn: customer_state_province
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		lineageTag: cdf3aa62-657f-47ec-b92e-89556c648329
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column birthdate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 23aa1e3d-7586-48ef-ac8f-3a5d0a6a9b64
+		summarizeBy: none
+		sourceColumn: birthdate
+
+		variation Variation
+			isDefault
+			relationship: 7ff0004d-e8a2-41c9-9c94-7b7ac0ae5bad
+			defaultHierarchy: LocalDateTable_c43760ed-fe47-4d7d-9886-b66829ee51ec.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column marital_status
+		dataType: string
+		lineageTag: a68ae194-5d12-4730-b00c-9a327e381ce0
+		summarizeBy: none
+		sourceColumn: marital_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column yearly_income
+		dataType: string
+		lineageTag: 1afadcda-b576-4665-8d15-955b3b41f8ab
+		summarizeBy: none
+		sourceColumn: yearly_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: b4cbedc4-4119-4853-a2cc-c1f0bf240078
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_children
+		dataType: int64
+		formatString: 0
+		lineageTag: ff0d9e39-6306-40f7-b60b-38ac8810e2f2
+		summarizeBy: sum
+		sourceColumn: total_children
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_children_at_home
+		dataType: int64
+		formatString: 0
+		lineageTag: c0b496e5-14c4-4918-a916-870d0e7dd000
+		summarizeBy: sum
+		sourceColumn: num_children_at_home
+
+		annotation SummarizationSetBy = Automatic
+
+	column education
+		dataType: string
+		lineageTag: e40895c8-82cb-4953-aefc-2bf906ec134c
+		summarizeBy: none
+		sourceColumn: education
+
+		annotation SummarizationSetBy = Automatic
+
+	column acct_open_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4e49f05a-1f09-424b-8658-25be3bb9f1d2
+		summarizeBy: none
+		sourceColumn: acct_open_date
+
+		variation Variation
+			isDefault
+			relationship: 33f8f310-5c9f-4c48-b387-c7d513603ea0
+			defaultHierarchy: LocalDateTable_6fcb9d01-b1ad-4500-bfc6-77f8136db1ad.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column member_card
+		dataType: string
+		lineageTag: 6f2d68d7-d4a9-44f5-8a85-d85698772922
+		summarizeBy: none
+		sourceColumn: member_card
+
+		annotation SummarizationSetBy = Automatic
+
+	column occupation
+		dataType: string
+		lineageTag: 543f6034-6764-433f-947a-5d045c3bfd59
+		summarizeBy: none
+		sourceColumn: occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column homeowner
+		dataType: string
+		lineageTag: d50725c8-b47c-402b-ac61-5918ad183144
+		summarizeBy: none
+		sourceColumn: homeowner
+
+		annotation SummarizationSetBy = Automatic
+
+	column birthyear
+		dataType: string
+		lineageTag: d3c6c29d-9167-4720-be00-58f3474c291a
+		summarizeBy: none
+		sourceColumn: birthyear
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_children
+		dataType: string
+		lineageTag: 54aa5d58-e605-4440-bd36-f512339380f1
+		summarizeBy: none
+		sourceColumn: has_children
+
+		annotation SummarizationSetBy = Automatic
+
+	column Current_Age = DATEDIFF('customers'[birthdate], TODAY(), YEAR)
+		formatString: 0
+		lineageTag: eca153e7-92c2-439a-86c0-2d46a3ddf044
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority = IF(AND(customers[homeowner] = "Y", customers[member_card] = "Golden"), "High", "Standard")
+		lineageTag: 0acfe429-078a-45ac-b578-0f48d0cd1d57
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Short_Country = UPPER(LEFT(customers[customer_country], 3))
+		lineageTag: 40fde6d2-7c38-4904-87b8-50dc64a86dad
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_customers = Source{[Schema="dbo",Item="customers"]}[Data]
+				in
+				    dbo_customers
+
+	annotation PBI_ResultType = Table
+

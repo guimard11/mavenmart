@@ -1,0 +1,101 @@
+table calendar_new
+	lineageTag: b0b388ff-1825-43fa-b6b4-cbb0d1165313
+	dataCategory: Time
+
+	column date
+		dataType: dateTime
+		isKey
+		formatString: m/d/yyyy
+		lineageTag: 2d726f1e-04ce-4382-a9fb-250cffda3865
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8377020b-fac8-417d-b1d9-29478f868667
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 539e3814-c5d9-4627-bc2a-d63efaccdfbb
+		summarizeBy: sum
+		sourceColumn: quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_month
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: f7a861a9-adb3-4dbf-a319-3ed52bf3655f
+		summarizeBy: none
+		sourceColumn: start_month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column monday_start_week
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: a0aa039a-2956-4f13-a777-329b19b990c7
+		summarizeBy: none
+		sourceColumn: monday_start_week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column day_name
+		dataType: string
+		lineageTag: 910686d7-e87a-49a8-95d1-188e487ec71d
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: cdf11ea2-a52d-4ceb-90b8-ad8a615f42fb
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekend = IF(calendar_new[day_name] IN {"Saturday", "Sunday"}, "Y", "N")
+		lineageTag: 510fd6fa-15aa-4fd9-8f42-78aefbcfc35b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column End_of_Month = FORMAT(EOMONTH(calendar_new[date], 0), "yyyy-mm-dd")
+		lineageTag: 9d33ad00-8821-442b-8bae-2fce1e140c1f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition calendar_new = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_calendar_new = Source{[Schema="dbo",Item="calendar_new"]}[Data]
+				in
+				    dbo_calendar_new
+
+	annotation PBI_ResultType = Table
+

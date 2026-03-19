@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["calendar_new","customers","products_new","regions","stores_new","transactions","returns_97_98"]
+
+ref table calendar_new
+ref table DateTableTemplate_f4e67385-f9d1-4d9b-9c84-c8e29ff1204d
+ref table customers
+ref table LocalDateTable_c43760ed-fe47-4d7d-9886-b66829ee51ec
+ref table LocalDateTable_6fcb9d01-b1ad-4500-bfc6-77f8136db1ad
+ref table products_new
+ref table regions
+ref table stores_new
+ref table transactions
+ref table returns_97_98
+
+ref cultureInfo en-US
+

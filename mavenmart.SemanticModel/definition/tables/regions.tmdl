@@ -1,0 +1,39 @@
+table regions
+	lineageTag: 70a5249f-cc67-4e75-ba5a-2e6d7eb53106
+
+	column region_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4775cf60-1eb9-4ba6-aca3-f901a4042f67
+		summarizeBy: none
+		sourceColumn: region_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_district
+		dataType: string
+		lineageTag: ce243c7d-532d-43e1-8cca-848cebed5782
+		summarizeBy: none
+		sourceColumn: sales_district
+
+		annotation SummarizationSetBy = Automatic
+
+	column sales_region
+		dataType: string
+		lineageTag: 3858b990-f54f-43bf-a80c-21cba57fa31d
+		summarizeBy: none
+		sourceColumn: sales_region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition regions = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_regions = Source{[Schema="dbo",Item="regions"]}[Data]
+				in
+				    dbo_regions
+
+	annotation PBI_ResultType = Table
+

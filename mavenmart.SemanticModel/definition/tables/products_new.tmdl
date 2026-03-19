@@ -1,0 +1,117 @@
+table products_new
+	lineageTag: f4ec26ca-8cf2-4a34-b39d-940c9771ccd4
+
+	measure Unique_products = DISTINCTCOUNT(products_new[product_name])
+		formatString: 0
+		lineageTag: d1e06c9e-61c2-4729-9423-2795d911fbcf
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 20ea5811-6a96-4182-9968-b53f4afbd19e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_brand
+		dataType: string
+		lineageTag: d70599a6-b402-4bb3-9dc2-093cc273757a
+		summarizeBy: none
+		sourceColumn: product_brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: e008c863-f972-48f1-a881-626490c0e52f
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_sku
+		dataType: string
+		lineageTag: f36e7c69-f866-486e-b4b0-b0052c9800ea
+		summarizeBy: none
+		sourceColumn: product_sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_retail_price
+		dataType: double
+		lineageTag: 4071f8aa-85ae-4e92-9bdb-67d22f10879d
+		summarizeBy: sum
+		sourceColumn: product_retail_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_cost
+		dataType: double
+		lineageTag: 78e5cad2-63db-4595-b39e-dac3ba33bb17
+		summarizeBy: sum
+		sourceColumn: product_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_weight
+		dataType: double
+		lineageTag: 77f8ddc9-0c8d-4703-ada5-108add46072e
+		summarizeBy: sum
+		sourceColumn: product_weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recyclable
+		dataType: double
+		lineageTag: cd6400ba-b484-451b-83a2-c8482fded549
+		summarizeBy: sum
+		sourceColumn: recyclable
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column low_fat
+		dataType: double
+		lineageTag: 1ce80309-05bb-416d-a884-ca954b654756
+		summarizeBy: sum
+		sourceColumn: low_fat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_price
+		dataType: double
+		lineageTag: c8d1ce77-4386-4f1e-9801-4d714d0737fd
+		summarizeBy: sum
+		sourceColumn: discount_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Price_Tier = IF(products_new[product_retail_price] > 3, "High", IF(products_new[product_retail_price] > 1, "Mid", "Low"))
+		lineageTag: 007c6b93-8729-4a55-a49d-cd0238c48c55
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition products_new = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("f3nr5esrpgtepfm6k3q3inmt5a-wlugskf6w6eujib6o4cpgfh44u.datawarehouse.fabric.microsoft.com", "LH_mavenmart_gold"),
+				    dbo_products_new = Source{[Schema="dbo",Item="products_new"]}[Data]
+				in
+				    dbo_products_new
+
+	annotation PBI_ResultType = Table
+
