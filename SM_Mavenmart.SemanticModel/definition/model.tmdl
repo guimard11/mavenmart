@@ -10,7 +10,7 @@ annotation PBI_QueryOrder = ["DirectLake - LH_mavenmart_gold"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit"]
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop"]
 
 ref table transactions
 ref table returns_97_98
